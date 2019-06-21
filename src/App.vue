@@ -12,6 +12,13 @@ export default {
   name: 'app',
   components: {
     HelloWorld
+  },
+  async mounted () {
+    const ref = this.$firestore.collection('collection')
+      const snapshot = await ref.get()
+      snapshot.forEach(doc => {
+          console.log(doc.data())
+      })
   }
 }
 </script>
