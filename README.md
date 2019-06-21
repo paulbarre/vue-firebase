@@ -13,7 +13,7 @@ Plugin under development, a lot more to come in a close future (?).
 Install the package into your Vue application:
 
 ```
-npm i @paulbarre/vue-firebase
+npm i @paulbarre/vue-firebase firebase
 ```
 
 Install the plugin into your application:
