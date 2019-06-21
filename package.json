@@ -19,7 +19,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build:sample": "vue-cli-service build",
-    "build": "vue-cli-service build --target lib --name VueFirebasePlugin ./src/index.js"
+    "build": "vue-cli-service build --target lib --name VueFirebasePlugin ./src/index.js",
+    "prepublish": "npm run build"
   },
   "dependencies": {
     "firebase": "^6.2.1",
