@@ -40,7 +40,6 @@
   ],
   "files": [
     "dist/VueFirebasePlugin.common.js",
-    "dist/VueFirebasePlugin.css",
     "LICENSE",
     "README.md"
   ]
