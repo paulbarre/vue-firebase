@@ -1,8 +1,8 @@
 module.exports = {
     chainWebpack: config => {
         config.externals({
-            'firebase/app': 'firebase',
-            'firebase/firestore': 'firestore'
+            'firebase/app': 'firebase/app',
+            'firebase/firestore': 'firebase/firestore'
         })
     }
 }
