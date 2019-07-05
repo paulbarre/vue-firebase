@@ -6,6 +6,9 @@ const VueFirebasePlugin = {
         if (options.firestore && Boolean(options.firestore)) {
             this.setupFirestore(Vue, options)
         }
+        if (options.auth && Boolean(options.auth)) {
+            this.setupAuth(Vue, options)
+        }
     },
 
     setupFirestore (Vue, options = {}) {
@@ -15,6 +18,20 @@ const VueFirebasePlugin = {
         }
         require('firebase/firestore')
         Vue.prototype.$firestore = firebase.firestore()
+    },
+
+    setupAuth (Vue, options = {}) {
+        require('firebase/auth')
+        const root = new Vue({
+            data: {
+                user: null
+            }
+        })
+        Object.defineProperties(Vue.prototype, {
+            $logged: {
+                get: _ => !!root.user
+            }
+        })
     }
 }
 export default VueFirebasePlugin
