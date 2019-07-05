@@ -26,7 +26,7 @@ const options = {
     ...
 }
 
-Vue.use(VueFirebase, options)
+Vue.use(VueFirebasePlugin, options)
 ```
 
 Currently the plugin recognizes the following options:
