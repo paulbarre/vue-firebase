@@ -1,35 +1,42 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+    <div id="app">
+        <div><input placeholder="email" type="text" v-model="email"></div>
+        <div><input placeholder="password" type="password" v-model="password"></div>
+        <div><button @click="signin">Login with email</button></div>
+        <p style="color: red">{{ error }}</p>
+        <p>Am i logged: {{ $logged }}</p>
+        <div><button @click="signOut">Sign out</button></div>
+    </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
-  name: 'app',
-  components: {
-    HelloWorld
-  },
-  async mounted () {
-    const ref = this.$firestore.collection('collection')
-      const snapshot = await ref.get()
-      snapshot.forEach(doc => {
-          console.log(doc.data())
-      })
-  }
+    name: 'app',
+    data () {
+        return {
+            email: '',
+            password: '',
+            error: ''
+        }
+    },
+    methods: {
+        async signin () {
+            try {
+                const response = await this.$auth.signInWithEmailAndPassword(this.email, this.password)
+                this.error = ''
+            } catch (error) {
+                this.error = error.message
+            }
+        },
+
+        async signOut () {
+            try {
+                const response = await this.$auth.signOut()
+                this.error = ''
+            } catch (error) {
+                this.error = error.message
+            }
+        }
+    }
 }
 </script>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>

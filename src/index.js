@@ -21,17 +21,25 @@ const VueFirebasePlugin = {
     },
 
     setupAuth (Vue, options = {}) {
+        if (!options.config || !options.config.apiKey) {
+            // eslint-disable-next-line
+            return console.warn(`Firebase 'apiKey' should be provided`)
+        }
         require('firebase/auth')
-        const root = new Vue({
+        const auth = new Vue({
             data: {
                 user: null
             }
         })
         Object.defineProperties(Vue.prototype, {
             $logged: {
-                get: _ => !!root.user
+                get: _ => !!auth.user
             }
         })
+        
+        firebase.auth().onAuthStateChanged(user => auth.user = user)
+
+        Vue.prototype.$auth = firebase.auth()
     }
 }
 export default VueFirebasePlugin
