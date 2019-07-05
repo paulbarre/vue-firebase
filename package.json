@@ -2,7 +2,7 @@
   "name": "@paulbarre/vue-firebase",
   "author": "Paul Barré <contact@paulbarre.co>",
   "description": "Vue plugin to easily setup Firebase API",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "license": "AGPL-3.0-or-later",
   "main": "dist/VueFirebasePlugin.common.js",
   "repository": {

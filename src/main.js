@@ -4,11 +4,14 @@ import App from './App.vue'
 import VueFirebasePlugin from './index'
 
 const projectId = ''
+const apiKey = ''
 
 Vue.use(VueFirebasePlugin, {
   firestore: true,
+  auth: true,
   config: {
-    projectId
+    projectId,
+    apiKey
   }
 })
 Vue.config.productionTip = false
