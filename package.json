@@ -23,11 +23,11 @@
     "prepublish": "npm run build"
   },
   "dependencies": {
-    "firebase": "^6.2.1",
+    "firebase": "^6.2.4",
     "vue": "^2.6.10"
   },
   "devDependencies": {
-    "@vue/cli-service": "^3.8.0",
+    "@vue/cli-service": "^3.9.2",
     "vue-template-compiler": "^2.6.10"
   },
   "postcss": {
