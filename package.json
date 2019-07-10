@@ -22,12 +22,11 @@
     "build": "vue-cli-service build --target lib --name VueFirebasePlugin ./src/index.js",
     "prepublish": "npm run build"
   },
-  "dependencies": {
-    "firebase": "^6.2.4",
-    "vue": "^2.6.10"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@vue/cli-service": "^3.9.2",
+    "firebase": "^6.2.4",
+    "vue": "^2.6.10",
     "vue-template-compiler": "^2.6.10"
   },
   "postcss": {
