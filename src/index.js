@@ -1,8 +1,8 @@
-import firebase from 'firebase/app'
+import { initializeApp } from 'firebase'
 
 const VueFirebasePlugin = {
     install (Vue, options = {}) {
-        firebase.initializeApp(options.config)
+        initializeApp(options.config)
         if (options.firestore && Boolean(options.firestore)) {
             this.setupFirestore(Vue, options)
         }
@@ -16,8 +16,8 @@ const VueFirebasePlugin = {
             // eslint-disable-next-line
             return console.warn(`Firebase 'projectId' should be provided`)
         }
-        require('firebase/firestore')
-        Vue.prototype.$firestore = firebase.firestore()
+        const { firestore } = require('firebase')
+        Vue.prototype.$firestore = firestore()
     },
 
     setupAuth (Vue, options = {}) {
@@ -25,21 +25,21 @@ const VueFirebasePlugin = {
             // eslint-disable-next-line
             return console.warn(`Firebase 'apiKey' should be provided`)
         }
-        require('firebase/auth')
-        const auth = new Vue({
+        const { auth } = require('firebase')
+        const Auth = new Vue({
             data: {
                 user: null
             }
         })
         Object.defineProperties(Vue.prototype, {
             $logged: {
-                get: _ => !!auth.user
+                get: _ => !!Auth.user
             }
         })
         
-        firebase.auth().onAuthStateChanged(user => auth.user = user)
+        auth().onAuthStateChanged(user => Auth.user = user)
 
-        Vue.prototype.$auth = firebase.auth()
+        Vue.prototype.$auth = auth()
     }
 }
 export default VueFirebasePlugin
