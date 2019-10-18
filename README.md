@@ -5,6 +5,7 @@
 Currently these are the supported features:
 
 - [x] Connection to Firestore
+- [x] Configure offline persistence
 - [x] Authentication feature
 
 Plugin under development, a lot more to come in a close future (?).
@@ -35,8 +36,10 @@ Currently the plugin recognizes the following options:
 Name|Type|Default|Description
 :-|:-|:-|:-
 `config`|Object|__See below__|Firebase configuration
-`firestore`|Boolean|**false**|Sets up firestore into your application
+`firestore`|Boolean\|Object|**false**\|empty|Sets up firestore into your application
 `auth`|Boolean|**false**|Sets up authentication into your application
+
+Firestore will be setup if `firestore` is **true** or an object (empty or not).
 
 The `config` option is used to initialize the Firebase application.
 
@@ -60,6 +63,7 @@ const apiKey = '<put your api key here>'
 
 Vue.use(VueFirebasePlugin, {
   firestore: true,
+  auth: true,
   config: {
     projectId,
     apiKey
@@ -86,6 +90,12 @@ In order to setup Firestore into your application, it is imperative that you giv
 
 * `projectId`
 
+To configure Firestore, the plugin `firestore` parameter has to be **true** or an object. As an object it accepts the following options:
+
+Name|Type|Default|Description
+:-|:-|:-|:-
+`enablePersistence`|Boolean|**false**|Sets up offline persistence ([official documentation](https://firebase.google.com/docs/firestore/manage-data/enable-offline))
+
 VueFirebasePlugin provides `$firestore` attribute to your Vue components:
 
 `App.vue`
@@ -96,10 +106,10 @@ export default {
   name: 'app',
   async mounted () {
     const ref = this.$firestore.collection('<the collection you want to use>')
-      const snapshot = await ref.get()
-      snapshot.forEach(doc => {
-          console.log(doc.data())
-      })
+    const snapshot = await ref.get()
+    snapshot.forEach(doc => {
+      console.log(doc.data())
+    })
   }
 }
 </script>

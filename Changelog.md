@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.0
+
+* Add `enablePersistence` parameter to Firestore to enable offline data
+
 ## 0.2.0
 
 * Provide access to Firebase authentication to components with `$auth` property
