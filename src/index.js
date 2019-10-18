@@ -3,7 +3,7 @@ import firebase from 'firebase/app'
 const VueFirebasePlugin = {
     install (Vue, options = {}) {
         firebase.initializeApp(options.config)
-        if (options.firestore && Boolean(options.firestore)) {
+        if (options.firestore) {
             this.setupFirestore(Vue, options)
         }
         if (options.auth && Boolean(options.auth)) {
@@ -11,12 +11,15 @@ const VueFirebasePlugin = {
         }
     },
 
-    setupFirestore (Vue, options = {}) {
-        if (!options.config || !options.config.projectId) {
+    setupFirestore (Vue, { config = {}, firestore = {} }) {
+        if (!config || !config.projectId) {
             // eslint-disable-next-line
             return console.warn(`Firebase 'projectId' should be provided`)
         }
         require('firebase/firestore')
+        if (firestore.enablePersistence) {
+            firebase.firestore().enablePersistence()
+        }
         Vue.prototype.$firestore = firebase.firestore()
     },
 
