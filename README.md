@@ -135,7 +135,7 @@ const myCollectionRef = this.$firestore.collection('myCollection')
 const snapshot = await this.$firestore.getFromCache(doc('myDoc'))
 ```
 
-If no data is found into the cache, the data from the server will be downloaded. If no data is found on the server, `undefined` will be returner.
+If no data is found into the cache, the data from the server will be downloaded. If no data is found on the server, `undefined` will be returned.
 
 > Attention, to be able to use **getFromCache**, **enablePersistence** has to be set to true.
 
