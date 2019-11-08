@@ -11,6 +11,25 @@ const VueFirebasePlugin = {
         }
     },
 
+    enablePersistence () {
+        firebase.firestore().enablePersistence()
+
+        firebase.firestore().getFromCache = async function (ref, { source = 'cache'} = {}) {
+            try {
+                return await ref.get({ source })
+            } catch (error) {
+                if (source === 'cache') {
+                    return await this.getFromCache(ref, {
+                        source: 'default'
+                    })
+                } else {
+                    throw error
+                }
+            }
+
+        }
+    },
+
     setupFirestore (Vue, { config = {}, firestore = {} }) {
         if (!config || !config.projectId) {
             // eslint-disable-next-line
@@ -18,7 +37,7 @@ const VueFirebasePlugin = {
         }
         require('firebase/firestore')
         if (firestore.enablePersistence) {
-            firebase.firestore().enablePersistence()
+            this.enablePersistence()
         }
         Vue.prototype.$firestore = firebase.firestore()
     },

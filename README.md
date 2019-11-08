@@ -5,7 +5,7 @@
 Currently these are the supported features:
 
 - [x] Connection to Firestore
-- [x] Configure offline persistence
+- [x] Configure offline persistence, providing useful function to get document from cache
 - [x] Authentication feature
 
 Plugin under development, a lot more to come in a close future (?).
@@ -114,6 +114,30 @@ export default {
 }
 </script>
 ```
+
+`getFromCache`
+
+Enabling the offline cache to Firestore will provide a custom method to `$firestore` in order to get a document from cache or from server if not found into cache.
+
+Using default firebase API, to get a document from cache:
+
+```js
+const myCollectionRef = this.$firestore.collection('myCollection')
+const snapshot = await myCollectionRef.doc('myDoc').get({ source: 'cache' })
+```
+
+If no data for the document `myDoc` is found into the cache, an error is thrown.
+
+To provide automatically a fallback to the server, it is possible to do the following:
+
+```js
+const myCollectionRef = this.$firestore.collection('myCollection')
+const snapshot = await this.$firestore.getFromCache(doc('myDoc'))
+```
+
+If no data is found into the cache, the data from the server will be downloaded. If no data is found on the server, `undefined` will be returned.
+
+> Attention, to be able to use **getFromCache**, **enablePersistence** has to be set to true.
 
 For more information on how to use `$firestore`, check at the [official documentation](https://firebase.google.com/docs/reference/node/firebase.firestore).
 
