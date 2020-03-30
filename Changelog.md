@@ -1,5 +1,9 @@
 # Changelog
 
+## [Unstaged]
+
+* Update dependencies
+
 ## 0.4.0
 
 * Provide `getFromCache`, a custom method to `$firestore` equivalent to `docRef.get({ source: 'cache' })` but download data from server if no data in cache found
