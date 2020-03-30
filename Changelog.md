@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unstaged]
+
+**Changes**
+
+* Update dependencies
+* Move `firebase` from dev dependencies to peer dependencies
+* Update Documentation to explain how to run the example application
+
 ## 0.4.0
 
 * Provide `getFromCache`, a custom method to `$firestore` equivalent to `docRef.get({ source: 'cache' })` but download data from server if no data in cache found

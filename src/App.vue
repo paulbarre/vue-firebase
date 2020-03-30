@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import { collection } from '@/firebase'
 export default {
   name: 'app',
   data () {
@@ -18,6 +19,13 @@ export default {
       password: '',
       error: ''
     }
+  },
+  async mounted () {
+    const ref = this.$firestore.collection(collection)
+    const snapshot = await ref.get()
+    snapshot.forEach(doc => {
+      console.log(doc.data())
+    })
   },
   methods: {
     async handleError (fn) {

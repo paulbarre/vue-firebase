@@ -2,7 +2,7 @@
   "name": "@paulbarre/vue-firebase",
   "author": "Paul Barré <contact@paulbarre.co>",
   "description": "Vue plugin to easily setup Firebase API",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "license": "GPL-3.0-or-later",
   "main": "dist/VueFirebasePlugin.common.js",
   "repository": {
@@ -23,11 +23,13 @@
     "prepublish": "npm run build"
   },
   "dependencies": {},
+  "peerDependencies": {
+    "firebase": "^7.13.1"
+  },
   "devDependencies": {
-    "@vue/cli-service": "^4.0.3",
-    "firebase": "^7.2.1",
-    "vue": "^2.6.10",
-    "vue-template-compiler": "^2.6.10"
+    "@vue/cli-service": "^4.2.3",
+    "vue": "^2.6.11",
+    "vue-template-compiler": "^2.6.11"
   },
   "postcss": {
     "plugins": {
