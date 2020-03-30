@@ -24,10 +24,10 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@vue/cli-service": "^4.0.3",
-    "firebase": "^7.2.1",
-    "vue": "^2.6.10",
-    "vue-template-compiler": "^2.6.10"
+    "@vue/cli-service": "^4.2.3",
+    "firebase": "^7.13.1",
+    "vue": "^2.6.11",
+    "vue-template-compiler": "^2.6.11"
   },
   "postcss": {
     "plugins": {
