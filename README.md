@@ -206,3 +206,9 @@ For more information on how to use `$auth`, check at the [official documentation
 **Tested so far**
 
 * Sign in with email and password
+
+## Example
+
+Check out the repository for a full example. Clone the repository and edit `[src/firebase.js](https://github.com/paulbarre/vue-firebase/blob/master/src/firebase.js)` to add your project configuration.
+
+Install dependencies with `npm i` and run the sample application with `npm run serve`.
