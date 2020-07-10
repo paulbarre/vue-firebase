@@ -25,6 +25,12 @@ export interface FirebaseConfig {
 
 declare module 'vue/types/vue' {
   export interface Vue {
-    $auth: firebase.auth.Auth
+    $auth: FirebaseAuth
   }
+}
+
+interface FirebaseAuth {
+  loading: boolean
+  logged: boolean
+  currentUser: firebase.User | null | undefined
 }
