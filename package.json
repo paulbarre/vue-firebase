@@ -5,6 +5,7 @@
   "version": "0.4.1",
   "license": "GPL-3.0-or-later",
   "main": "dist/VueFirebasePlugin.common.js",
+  "types": "types/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/paulbarre/vue-firebase"
@@ -41,8 +42,7 @@
     "last 2 versions"
   ],
   "files": [
-    "dist/VueFirebasePlugin.common.js",
-    "LICENSE",
-    "README.md"
+    "/dist/VueFirebasePlugin.common.js",
+    "/types"
   ]
 }
