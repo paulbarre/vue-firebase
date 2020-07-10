@@ -49,19 +49,34 @@ const VueFirebasePlugin = {
         }
         require('firebase/auth')
         const auth = new Vue({
-            data: {
-                user: null
-            }
+            data: () => ({
+                currentUser: undefined
+            })
         })
         Object.defineProperties(Vue.prototype, {
             $logged: {
-                get: _ => !!auth.user
+                get: () => {
+                    // eslint-disable-next-line
+                    console.warn(`[vue-firebase] '$logged' is deprecated. Use '$auth.logged' instead.`)
+                    return !!auth.currentUser
+                }
+            }
+        })      
+        firebase.auth().onAuthStateChanged(user => auth.currentUser = user)
+
+        Vue.prototype.$auth = new Vue({
+            computed: {
+                loading: {
+                    get: () => auth.currentUser === undefined
+                },
+                currentUser: {
+                    get: () => auth.currentUser
+                },
+                logged: {
+                    get: () => !!auth.currentUser
+                }
             }
         })
-        
-        firebase.auth().onAuthStateChanged(user => auth.user = user)
-
-        Vue.prototype.$auth = firebase.auth()
     }
 }
 export default VueFirebasePlugin
