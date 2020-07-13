@@ -1,5 +1,12 @@
 # Firebase plugin for Vue.js
 
+- [Introduction](#introduction)
+- [Installation](#installation)
+- [TypeScript](#typescript)
+- [Firestore](#firestore)
+- [Authentication](#authentication)
+- [Example](#example)
+
 ## Introduction
 
 Currently these are the supported features:
@@ -84,6 +91,20 @@ It is what you can see on the URL when you access your project with the Firebase
 
 This is a string mixing characters and numbers looking like: `AIza62bf....`.
 
+## TypeScript
+
+In case you are using TypeScript for your project, you need to add the support for this package. Add the following into your `tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    "types": [
+      "@paulbarre/vue-firebase"
+    ]
+  }
+}
+```
+
 ## Firestore
 
 In order to setup Firestore into your application, it is imperative that you give the plugin `config` parameters:
@@ -147,13 +168,22 @@ In order to setup Authentication into your application, it is imperative that yo
 
 * `apiKey`
 
-VueFirebasePlugin provides `$auth` attribute to your Vue components to be able to use Firebase authentication methods. Basically it is mapping `firebase.auth()`.
+VueFirebasePlugin provides `$auth` attribute to your Vue components:
 
-In addition, it provides a global computed property `$logged` to check if the app is logged or not to Firebase.
+**$auth**
+* `logged`: _boolean_, true or false regarding if the app is logged or not to Firebase.
+* `loading`: _boolean_, when the app is starting, Firebase checks automatically in background the status of the user. `loading` is true as long as the response from Firebase is not recovered yet.
+* `currentUser`: _object_, undefined if `loading` is true, null if not logged in.
+
+`currentUser` is the same value than recovered with `firebase.auth().currentUser`. The problem using `firebase` is that you cannot map a computed property to this value. If you need watchers, use `$auth.currentUser`.
+
+> **Breaking change for v0.5.0+**<br>For the above reason, `$auth` is not `firebase.auth()` anymore. If you need to use one of the authentication methods, import firebase and call methods such as `firebase.auth().signOut()`.
+
+> **Deprecation for v0.5.0+**<br>`$logged` is still available but is now deprecated. Use `$auth.logged` instead.
 
 **Important**
 
-The plugin will automatically set the Firebase callback `onAuthStateChanged` that will check the user current login. So it is not needed to make any call to the API when the app is refreshed, just looking at `$logged` will tell if the app is logged in or not.
+The plugin will automatically set the Firebase callback `onAuthStateChanged` that will check the user current login. So it is not needed to make any call to the API when the app is refreshed, just looking at `$auth.logged` will tell if the app is logged in or not.
 
 Real world example for signing in and signing out:
 
@@ -164,12 +194,13 @@ Real world example for signing in and signing out:
     <div><input placeholder="password" type="password" v-model="password"></div>
     <div><button @click="handleError(signIn)">Login with email</button></div>
     <p class="error">{{ error }}</p>
-    <p>Am i logged: {{ $logged }}</p>
+    <p>Am i logged: {{ $auth.logged }}</p>
     <div><button @click="handleError(signOut)">Sign out</button></div>
   </div>
 </template>
 
 <script>
+import firebase from 'firebase/app'
 export default {
   name: 'app',
   data () {
@@ -190,18 +221,16 @@ export default {
     },
 
     async signIn () {
-      await this.$auth.signInWithEmailAndPassword(this.email, this.password)
+      await firebase.auth().signInWithEmailAndPassword(this.email, this.password)
     },
 
     async signOut () {
-      await this.$auth.signOut()
+      await firebase.auth().signOut()
     }
   }
 }
 </script>
 ```
-
-For more information on how to use `$auth`, check at the [official documentation](https://firebase.google.com/docs/reference/js/firebase.auth).
 
 **Tested so far**
 
